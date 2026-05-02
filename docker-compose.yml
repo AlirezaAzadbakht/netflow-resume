@@ -1,0 +1,13 @@
+services:
+  netflow-resume:
+    image: netflow-resume
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3111:3000" 
+    environment:
+      NODE_ENV: production
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
