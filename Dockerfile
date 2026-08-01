@@ -7,7 +7,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install 
+RUN npm install --verbose --registry="https://package-mirror.liara.ir/repository/npm/"
 
 COPY . .
 
