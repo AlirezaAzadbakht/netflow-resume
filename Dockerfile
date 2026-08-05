@@ -11,6 +11,9 @@ RUN npm install --verbose --registry="https://package-mirror.liara.ir/repository
 
 COPY . .
 
+ARG SHOW_TEAM=true
+ENV SHOW_TEAM=$SHOW_TEAM
+
 RUN npm run build
 
 

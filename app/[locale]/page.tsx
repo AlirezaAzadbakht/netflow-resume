@@ -5,6 +5,7 @@ import { Organizations } from "@/components/Organizations";
 import { ProductsGrid } from "@/components/ProductsGrid";
 import { Team } from "@/components/Team";
 import { Contact } from "@/components/Contact";
+import { showTeam } from "@/lib/features";
 
 export default async function HomePage({
   params,
@@ -16,11 +17,11 @@ export default async function HomePage({
 
   return (
     <>
-      <Hero />
+      <Hero showTeam={showTeam} />
       <About />
       <Organizations />
       <ProductsGrid />
-      <Team />
+      {showTeam && <Team />}
       <Contact />
     </>
   );

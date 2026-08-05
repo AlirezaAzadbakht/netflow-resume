@@ -14,9 +14,12 @@ const links = [
   { href: "#contact", key: "contact" as const },
 ];
 
-export function Navbar() {
+export function Navbar({ showTeam }: { showTeam: boolean }) {
   const t = useTranslations("nav");
   const [scrolled, setScrolled] = useState(false);
+  const visibleLinks = showTeam
+    ? links
+    : links.filter((l) => l.key !== "team");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -46,7 +49,7 @@ export function Navbar() {
         </Link>
 
         <ul className="hidden items-center gap-1 md:flex">
-          {links.map((l) => (
+          {visibleLinks.map((l) => (
             <li key={l.key}>
               <a
                 href={l.href}

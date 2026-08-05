@@ -4,6 +4,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        SHOW_TEAM: "false"
     restart: unless-stopped
     ports:
       - "3111:3000" 
