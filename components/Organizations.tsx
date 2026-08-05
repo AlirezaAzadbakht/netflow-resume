@@ -43,6 +43,12 @@ const organizations: Org[] = [
     nameEn: "Apadana Petrochemical",
     nameFa: "پتروشیمی آپادانا",
   },
+  {
+    key: "afa-chemi",
+    src: "/logos/Afa-chemi-pharmaceutical-co.png",
+    nameEn: "Afa chemi pharmaceutical co",
+    nameFa: "شرکت دارو سازی آفاشیمی",
+  },
 ];
 
 export function Organizations() {
@@ -62,7 +68,7 @@ export function Organizations() {
         </SectionReveal>
 
         <SectionReveal delay={0.1}>
-          <ul className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-5">
+          <ul className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-3">
             {organizations.map((org) => {
               const label = isFa ? org.nameFa : org.nameEn;
               return (

@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { products, getProductBySlug } from "@/data/products";
 import { routing } from "@/i18n/routing";
 import { Reveal, FeatureItem } from "@/components/ProductDetailAnimations";
+import { AparatEmbed } from "@/components/AparatEmbed";
 
 export async function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
@@ -106,6 +107,23 @@ export default async function ProductPage({
             </div>
           </Reveal>
         </header>
+
+        {product.video ? (
+          <Reveal delay={0.38}>
+            <section className="mt-12">
+              <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-600">
+                {t("video")}
+              </h2>
+              <div className="mt-4">
+                <AparatEmbed
+                  url={product.video}
+                  title={`${product.name[lang]} — ${t("video")}`}
+                  playLabel={t("playVideo")}
+                />
+              </div>
+            </section>
+          </Reveal>
+        ) : null}
 
         <Reveal delay={0.4}>
           <section className="mt-12 card-surface shine-border p-7">

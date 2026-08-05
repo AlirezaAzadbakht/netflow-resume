@@ -44,6 +44,8 @@
     "client": "Client",
     "demo": "Live demo",
     "noDemo": "Demo on request",
+    "video": "Promo video",
+    "playVideo": "Play promo video",
     "features": "Key features",
     "purpose": "Purpose",
     "back": "Back to all products",

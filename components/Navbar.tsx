@@ -2,21 +2,23 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { Logo } from "./Logo";
 import { LanguageToggle } from "./LanguageToggle";
 
 const links = [
-  { href: "#about", key: "about" as const },
-  { href: "#stack", key: "stack" as const },
-  { href: "#products", key: "products" as const },
-  { href: "#team", key: "team" as const },
-  { href: "#contact", key: "contact" as const },
+  { hash: "about", key: "about" as const },
+  { hash: "stack", key: "stack" as const },
+  { hash: "products", key: "products" as const },
+  { hash: "team", key: "team" as const },
+  { hash: "contact", key: "contact" as const },
 ];
 
 export function Navbar() {
   const t = useTranslations("nav");
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -46,16 +48,30 @@ export function Navbar() {
         </Link>
 
         <ul className="hidden items-center gap-1 md:flex">
-          {links.map((l) => (
-            <li key={l.key}>
-              <a
-                href={l.href}
-                className="relative rounded-full px-4 py-2 text-sm font-medium text-ink-500 transition-colors hover:text-brand-700"
-              >
-                {t(l.key)}
-              </a>
-            </li>
-          ))}
+          {links.map((l) => {
+            const className =
+              "relative rounded-full px-4 py-2 text-sm font-medium text-ink-500 transition-colors hover:text-brand-700";
+
+            // On the home page, native hash anchors scroll smoothly.
+            // Off home, go to /#section so the target section exists.
+            if (isHome) {
+              return (
+                <li key={l.key}>
+                  <a href={`#${l.hash}`} className={className}>
+                    {t(l.key)}
+                  </a>
+                </li>
+              );
+            }
+
+            return (
+              <li key={l.key}>
+                <Link href={`/#${l.hash}`} className={className}>
+                  {t(l.key)}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
         <div className="flex items-center gap-2">

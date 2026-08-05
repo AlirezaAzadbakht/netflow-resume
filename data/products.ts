@@ -30,6 +30,8 @@ export type Product = {
     fa: string[];
   };
   demo?: string;
+  /** Aparat (or similar) promo/demo video page URL, e.g. https://www.aparat.com/v/... */
+  video?: string;
   client: Bilingual;
 };
 
@@ -71,6 +73,7 @@ export const products: Product[] = [
       ],
     },
     demo: "https://netflowai.com",
+    video: "https://www.aparat.com/v/hxw7e3b",
     client: {
       en: "Internal NetflowAI product",
       fa: "محصول داخلی نِت‌فلو AI",
@@ -119,6 +122,7 @@ export const products: Product[] = [
       ],
     },
     demo: "https://helpdesk.netflowai.com/",
+    video: "https://www.aparat.com/v/mtkcqf9",
     client: {
       en: "Maroon Petrochemical Company",
       fa: "شرکت پتروشیمی مارون",
