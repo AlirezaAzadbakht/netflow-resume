@@ -19,14 +19,6 @@ export const team: TeamMember[] = [
     photo: "/team/arian-banaie.png",
   },
   {
-    id: "alireza-azadbakht",
-    name: { en: "Alireza Azadbakht", fa: "علیرضا آزادبخت" },
-    role: { en: "CTO", fa: "مدیر فناوری" },
-    initials: "AA",
-    accent: "from-purple-600 to-indigo-500",
-    photo: "/team/alireza-azadbakht.png",
-  },
-  {
     id: "ali-afzalpoor",
     name: { en: "Ali Afzalpoor", fa: "علی افضل‌پور" },
     role: { en: "Front-end Team Lead", fa: "سرپرست تیم فرانت‌اند" },
