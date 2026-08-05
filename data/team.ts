@@ -42,4 +42,12 @@ export const team: TeamMember[] = [
     accent: "from-indigo-500 to-violet-600",
     photo: "/team/shayesteh-momahhed.png",
   },
+  {
+    id: "mohammad-izadkhah",
+    name: { en: "Mohammad Izadkhah", fa: "محمد ایزدخواه" },
+    role: { en: "VP of Marketing", fa: "معاون بازاریابی" },
+    initials: "MI",
+    accent: "from-violet-500 to-purple-600",
+    photo: "/team/mohammad-izadkhah.jpg",
+  },
 ];
