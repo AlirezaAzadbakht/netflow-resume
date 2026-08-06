@@ -18,13 +18,7 @@ export function Navbar({ showTeam }: { showTeam: boolean }) {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-<<<<<<< HEAD
   const isHome = pathname === "/";
-=======
-  const visibleLinks = showTeam
-    ? links
-    : links.filter((l) => l.key !== "team");
->>>>>>> backup-weknd-main
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -54,7 +48,6 @@ export function Navbar({ showTeam }: { showTeam: boolean }) {
         </Link>
 
         <ul className="hidden items-center gap-1 md:flex">
-<<<<<<< HEAD
           {links.map((l) => {
             const className =
               "relative rounded-full px-4 py-2 text-sm font-medium text-ink-500 transition-colors hover:text-brand-700";
@@ -79,18 +72,6 @@ export function Navbar({ showTeam }: { showTeam: boolean }) {
               </li>
             );
           })}
-=======
-          {visibleLinks.map((l) => (
-            <li key={l.key}>
-              <a
-                href={l.href}
-                className="relative rounded-full px-4 py-2 text-sm font-medium text-ink-500 transition-colors hover:text-brand-700"
-              >
-                {t(l.key)}
-              </a>
-            </li>
-          ))}
->>>>>>> backup-weknd-main
         </ul>
 
         <div className="flex items-center gap-2">

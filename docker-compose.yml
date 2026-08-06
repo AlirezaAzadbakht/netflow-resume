@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        SHOW_TEAM: "false"
+        SHOW_TEAM: "true"
     restart: unless-stopped
     ports:
       - "3111:3000" 
