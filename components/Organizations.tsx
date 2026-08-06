@@ -49,6 +49,12 @@ const organizations: Org[] = [
     nameEn: "Afa chemi pharmaceutical co",
     nameFa: "شرکت دارو سازی آفاشیمی",
   },
+  {
+    key: "gisp",
+    src: "/logos/GISP.png",
+    nameEn: "GISP Group",
+    nameFa: "گروه جی‌ آی‌ اس‌ پی (GISP)",
+  },
 ];
 
 export function Organizations() {

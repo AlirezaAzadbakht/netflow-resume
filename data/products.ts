@@ -209,6 +209,7 @@ export const products: Product[] = [
       ],
     },
     demo: "https://aibi.netflowai.com/",
+    video: "https://www.aparat.com/v/pqvh30k",
     client: {
       en: "Maroon Petrochemical Company",
       fa: "شرکت پتروشیمی مارون",
