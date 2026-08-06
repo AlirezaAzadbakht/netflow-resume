@@ -6,6 +6,7 @@ import { routing } from "@/i18n/routing";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { HashScroll } from "@/components/HashScroll";
+import { showTeam } from "@/lib/features";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -59,7 +60,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           <HashScroll />
           <div className="relative flex min-h-screen flex-col">
-            <Navbar />
+            <Navbar showTeam={showTeam} />
             <main className="flex-1">{children}</main>
             <Footer />
           </div>
