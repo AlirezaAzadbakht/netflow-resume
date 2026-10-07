@@ -1,9 +1,4 @@
-.PHONY: deploy
-
-deploy:
-	docker-compose build --pull
-	docker-compose down
-	docker-compose up -d --remove-orphans
+.PHONY: sync-repos
 
 sync-repos:
 	git pull github main

@@ -1,21 +1,16 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export function Reveal({
   children,
   delay = 0,
-  className = "",
-  as: Tag = "div",
 }: {
   children: ReactNode;
   delay?: number;
-  className?: string;
-  as?: "div" | "section";
 }) {
-  const style: CSSProperties = { animationDelay: `${delay}s` };
   return (
-    <Tag className={`reveal-on-mount ${className}`} style={style}>
+    <div className="reveal-on-mount" style={{ animationDelay: `${delay}s` }}>
       {children}
-    </Tag>
+    </div>
   );
 }
 
@@ -28,9 +23,11 @@ export function FeatureItem({
   className?: string;
   children: ReactNode;
 }) {
-  const style: CSSProperties = { animationDelay: `${index * 0.05}s` };
   return (
-    <li className={`reveal-on-mount ${className}`} style={style}>
+    <li
+      className={`reveal-on-mount ${className}`}
+      style={{ animationDelay: `${index * 0.05}s` }}
+    >
       {children}
     </li>
   );

@@ -1,7 +1,4 @@
-"use client";
-
-import Image from "next/image";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations, useLocale } from "use-intl";
 import { SectionHeader } from "./SectionHeader";
 import { SectionReveal } from "./SectionReveal";
 
@@ -84,13 +81,12 @@ export function Organizations() {
                     title={label}
                   >
                     <div className="relative flex h-20 w-full items-center justify-center">
-                      <Image
+                      <img
                         src={org.src}
                         alt={label}
                         width={160}
                         height={80}
                         className="max-h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-                        unoptimized
                       />
                     </div>
                     <div className="text-center text-xs font-semibold tracking-wide text-ink-700 sm:text-sm">

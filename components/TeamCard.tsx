@@ -1,8 +1,5 @@
-"use client";
-
 import { motion } from "framer-motion";
-import { useLocale } from "next-intl";
-import Image from "next/image";
+import { useLocale } from "use-intl";
 import type { TeamMember } from "@/data/team";
 
 export function TeamCard({
@@ -29,26 +26,15 @@ export function TeamCard({
           animate={{ scale: [1, 1.06, 1] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: index * 0.3 }}
         />
-        {member.photo ? (
-          <div
-            className={`relative h-full w-full overflow-hidden rounded-full bg-gradient-to-br ${member.accent} shadow-glow ring-4 ring-white`}
-          >
-            <Image
-              src={member.photo}
-              alt={member.name[locale]}
-              fill
-              sizes="128px"
-              className="object-cover"
-              priority={index < 2}
-            />
-          </div>
-        ) : (
-          <div
-            className={`relative flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br ${member.accent} text-3xl font-bold text-white shadow-glow ring-4 ring-white`}
-          >
-            {member.initials}
-          </div>
-        )}
+        <div
+          className={`relative h-full w-full overflow-hidden rounded-full bg-gradient-to-br ${member.accent} shadow-glow ring-4 ring-white`}
+        >
+          <img
+            src={member.photo}
+            alt={member.name[locale]}
+            className="h-full w-full object-cover"
+          />
+        </div>
       </div>
 
       <h3 className="mt-5 text-lg font-semibold text-ink-900">

@@ -1,17 +1,13 @@
-"use client";
-
 import { useEffect, useState } from "react";
 
 export function Typewriter({
   text,
   speed = 22,
   startDelay = 200,
-  className,
 }: {
   text: string;
   speed?: number;
   startDelay?: number;
-  className?: string;
 }) {
   const [out, setOut] = useState("");
 
@@ -39,25 +35,13 @@ export function Typewriter({
   }, [text, speed, startDelay]);
 
   return (
-    <span className={className}>
+    <span>
       {out}
       <span
         aria-hidden
-        className="inline-block w-[2px] translate-y-[3px] bg-brand-500 ms-1"
-        style={{ height: "0.95em", animation: "blink 1s steps(1) infinite" }}
+        className="typewriter-caret inline-block w-[2px] translate-y-[3px] bg-brand-500 ms-1"
+        style={{ height: "0.95em" }}
       />
-      <style jsx>{`
-        @keyframes blink {
-          0%,
-          50% {
-            opacity: 1;
-          }
-          50.01%,
-          100% {
-            opacity: 0;
-          }
-        }
-      `}</style>
     </span>
   );
 }

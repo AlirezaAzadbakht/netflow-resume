@@ -1,0 +1,76 @@
+# Build the static site and sync it to Arvan Cloud Object Storage (S3-compatible).
+# Runs on push to main (except markdown-only changes) or via workflow_dispatch.
+#
+# Secrets:   ARVAN_ACCESS_KEY, ARVAN_SECRET_KEY, ARVAN_BUCKET
+# Variable:  ARVAN_ENDPOINT (optional, default s3.ir-thr-at1.arvanstorage.ir; Tabriz: s3.ir-tbz-sh1.arvanstorage.ir)
+# The bucket must have static website hosting enabled:
+#   - index document: index.html
+#   - error document: index.html  (required so SPA routes like /en/products/<slug> reload)
+
+name: Deploy website to Arvan Cloud
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "**.md"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-website
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Install rclone
+        run: curl -fsSL https://rclone.org/install.sh | sudo bash
+
+      - name: Sync dist/ to object storage
+        env:
+          ARVAN_ACCESS_KEY: ${{ secrets.ARVAN_ACCESS_KEY }}
+          ARVAN_SECRET_KEY: ${{ secrets.ARVAN_SECRET_KEY }}
+          ARVAN_BUCKET: ${{ secrets.ARVAN_BUCKET }}
+          ARVAN_ENDPOINT: ${{ vars.ARVAN_ENDPOINT }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${ARVAN_ACCESS_KEY}" ] || [ -z "${ARVAN_SECRET_KEY}" ] || [ -z "${ARVAN_BUCKET}" ]; then
+            echo "Missing required secrets: ARVAN_ACCESS_KEY, ARVAN_SECRET_KEY, ARVAN_BUCKET"
+            exit 1
+          fi
+
+          endpoint="${ARVAN_ENDPOINT:-s3.ir-thr-at1.arvanstorage.ir}"
+          endpoint="${endpoint#https://}"
+          endpoint="${endpoint#http://}"
+
+          export RCLONE_CONFIG_ARVAN_TYPE=s3
+          export RCLONE_CONFIG_ARVAN_PROVIDER=ArvanCloud
+          # Pasted secrets often carry a trailing newline/space, which Arvan rejects as InvalidAccessKeyId.
+          export RCLONE_CONFIG_ARVAN_ACCESS_KEY_ID="$(printf %s "${ARVAN_ACCESS_KEY}" | tr -d '[:space:]')"
+          export RCLONE_CONFIG_ARVAN_SECRET_ACCESS_KEY="$(printf %s "${ARVAN_SECRET_KEY}" | tr -d '[:space:]')"
+          export RCLONE_CONFIG_ARVAN_ENDPOINT="${endpoint}"
+          export RCLONE_CONFIG_ARVAN_ACL=public-read
+          export RCLONE_CONFIG_ARVAN_FORCE_PATH_STYLE=true
+
+          # Bucket root = site root. Objects no longer in dist/ are deleted.
+          rclone sync dist "arvan:${ARVAN_BUCKET}" \
+            --checksum \
+            --transfers 8 \
+            --verbose

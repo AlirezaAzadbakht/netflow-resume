@@ -1,7 +1,5 @@
-"use client";
-
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "use-intl";
 import { ArrowRight, Mail } from "lucide-react";
 import { SectionReveal } from "./SectionReveal";
 

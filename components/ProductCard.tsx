@@ -1,7 +1,5 @@
-"use client";
-
 import { motion } from "framer-motion";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "use-intl";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import type { Product } from "@/data/products";

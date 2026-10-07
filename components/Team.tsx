@@ -1,6 +1,4 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { useTranslations } from "use-intl";
 import { SectionHeader } from "./SectionHeader";
 import { SectionReveal } from "./SectionReveal";
 import { TeamCard } from "./TeamCard";

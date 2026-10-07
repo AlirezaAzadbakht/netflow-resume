@@ -2,7 +2,8 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./app/**/*.{ts,tsx}",
+    "./index.html",
+    "./src/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./data/**/*.{ts,tsx}",
   ],
@@ -18,40 +19,14 @@ const config: Config = {
           500: "#8b5cf6",
           600: "#7c3aed",
           700: "#6d28d9",
-          800: "#5b21b6",
           900: "#4c1d95",
         },
         ink: {
           900: "#0f0a1e",
-          800: "#1c1733",
           700: "#2a2347",
           500: "#5b5277",
-          300: "#b1aac8",
         },
-        paper: {
-          DEFAULT: "#fbfaff",
-          soft: "#f5f3ff",
-        },
-      },
-      fontFamily: {
-        sans: [
-          "Inter",
-          "ui-sans-serif",
-          "system-ui",
-          "-apple-system",
-          "Segoe UI",
-          "Roboto",
-          "Helvetica Neue",
-          "Arial",
-          "sans-serif",
-        ],
-        fa: [
-          "Iranian Sans",
-          "IranianSans",
-          "Vazirmatn",
-          "Tahoma",
-          "sans-serif",
-        ],
+        paper: "#fbfaff",
       },
       boxShadow: {
         glow:

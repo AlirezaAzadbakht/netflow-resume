@@ -1,9 +1,9 @@
-import { defineRouting } from "next-intl/routing";
+export type Locale = "en" | "fa";
 
-export const routing = defineRouting({
-  locales: ["en", "fa"],
-  defaultLocale: "en",
-  localePrefix: "always",
-});
+export function isLocale(value: string | undefined): value is Locale {
+  return value === "en" || value === "fa";
+}
 
-export type Locale = (typeof routing.locales)[number];
+export function localeFromNavigator(): Locale {
+  return navigator.language.toLowerCase().startsWith("fa") ? "fa" : "en";
+}

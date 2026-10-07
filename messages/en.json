@@ -13,7 +13,6 @@
     "switchAria": "Switch to Persian"
   },
   "hero": {
-    "eyebrow": "NetflowAI",
     "titleLead": "The operating system for",
     "titleHighlight": "intelligent enterprises",
     "subtitle": "We don't just build AI tools — we ship end-to-end intelligent systems that replace complexity with clarity, automate decision-making, and scale knowledge across organizations.",
@@ -48,8 +47,7 @@
     "playVideo": "Play promo video",
     "features": "Key features",
     "purpose": "Purpose",
-    "back": "Back to all products",
-    "notFound": "Product not found"
+    "back": "Back to all products"
   },
   "team": {
     "kicker": "Team",

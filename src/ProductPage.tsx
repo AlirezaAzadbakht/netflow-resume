@@ -1,51 +1,33 @@
-import { notFound } from "next/navigation";
-import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ArrowLeft, ExternalLink, Sparkles } from "lucide-react";
-import { Link } from "@/i18n/navigation";
-import { products, getProductBySlug } from "@/data/products";
-import { routing } from "@/i18n/routing";
-import { Reveal, FeatureItem } from "@/components/ProductDetailAnimations";
+import { Navigate, useParams } from "react-router";
+import { useTranslations } from "use-intl";
 import { AparatEmbed } from "@/components/AparatEmbed";
+import { FeatureItem, Reveal } from "@/components/ProductDetailAnimations";
+import { getProductBySlug } from "@/data/products";
+import { Link } from "@/i18n/navigation";
+import { isLocale } from "@/i18n/routing";
 
-export async function generateStaticParams() {
-  return routing.locales.flatMap((locale) =>
-    products.map((p) => ({ locale, slug: p.slug }))
-  );
-}
+export function ProductPage() {
+  const { locale, slug } = useParams();
+  const t = useTranslations("products");
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string; slug: string }>;
-}) {
-  const { locale, slug } = await params;
-  const product = getProductBySlug(slug);
-  if (!product) return {};
-  const name = product.name[locale as "en" | "fa"];
-  const desc = product.short[locale as "en" | "fa"];
-  return {
-    title: `${name} — NetflowAI`,
-    description: desc,
-  };
-}
-
-export default async function ProductPage({
-  params,
-}: {
-  params: Promise<{ locale: string; slug: string }>;
-}) {
-  const { locale, slug } = await params;
-  setRequestLocale(locale);
+  if (!isLocale(locale) || !slug) {
+    return <Navigate to="/en" replace />;
+  }
 
   const product = getProductBySlug(slug);
-  if (!product) notFound();
+  if (!product) {
+    return <Navigate to={`/${locale}`} replace />;
+  }
 
-  const t = await getTranslations({ locale, namespace: "products" });
-  const lang = locale as "en" | "fa";
+  const name = product.name[locale];
+  const desc = product.short[locale];
   const Icon = product.icon;
 
   return (
     <article className="relative">
+      <title>{`${name} — NetflowAI`}</title>
+      <meta name="description" content={desc} />
       <div className="absolute inset-x-0 top-0 -z-10 h-96 bg-gradient-to-b from-brand-100/60 to-transparent" />
 
       <div className="mx-auto max-w-4xl px-4 pb-24 pt-16 sm:px-6 sm:pt-20 lg:px-8">
@@ -70,13 +52,13 @@ export default async function ProductPage({
 
           <Reveal delay={0.15}>
             <h1 className="mt-6 text-balance text-3xl font-bold leading-tight tracking-tight text-ink-900 sm:text-5xl">
-              {product.name[lang]}
+              {name}
             </h1>
           </Reveal>
 
           <Reveal delay={0.25}>
             <p className="mt-5 text-pretty text-lg leading-relaxed text-ink-500">
-              {product.short[lang]}
+              {desc}
             </p>
           </Reveal>
 
@@ -102,7 +84,9 @@ export default async function ProductPage({
                 <span className="text-xs font-semibold uppercase tracking-wider text-brand-600">
                   {t("client")}
                 </span>
-                <span className="font-medium text-ink-900">{product.client[lang]}</span>
+                <span className="font-medium text-ink-900">
+                  {product.client[locale]}
+                </span>
               </span>
             </div>
           </Reveal>
@@ -117,7 +101,7 @@ export default async function ProductPage({
               <div className="mt-4">
                 <AparatEmbed
                   url={product.video}
-                  title={`${product.name[lang]} — ${t("video")}`}
+                  title={`${name} — ${t("video")}`}
                   playLabel={t("playVideo")}
                 />
               </div>
@@ -131,7 +115,7 @@ export default async function ProductPage({
               {t("purpose")}
             </h2>
             <p className="mt-3 text-pretty text-base leading-relaxed text-ink-700">
-              {product.purpose[lang]}
+              {product.purpose[locale]}
             </p>
           </section>
         </Reveal>
@@ -144,7 +128,7 @@ export default async function ProductPage({
           </Reveal>
 
           <ul className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {product.features[lang].map((feature, i) => (
+            {product.features[locale].map((feature, i) => (
               <FeatureItem
                 key={i}
                 index={i}

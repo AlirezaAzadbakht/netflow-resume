@@ -1,9 +1,7 @@
-"use client";
-
 import { useEffect } from "react";
 import { usePathname } from "@/i18n/navigation";
 
-/** Scroll to #hash after client navigations (Next.js often skips native hash scroll). */
+/** Scroll to #hash after client navigations. */
 export function HashScroll() {
   const pathname = usePathname();
 

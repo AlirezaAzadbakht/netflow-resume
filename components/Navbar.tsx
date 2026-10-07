@@ -1,7 +1,5 @@
-"use client";
-
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "use-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Logo } from "./Logo";
 import { LanguageToggle } from "./LanguageToggle";
@@ -14,7 +12,7 @@ const links = [
   { hash: "contact", key: "contact" as const },
 ];
 
-export function Navbar({ showTeam }: { showTeam: boolean }) {
+export function Navbar() {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);

@@ -4,9 +4,8 @@ export type TeamMember = {
   id: string;
   name: Bilingual;
   role: Bilingual;
-  initials: string;
   accent: string;
-  photo?: string;
+  photo: string;
 };
 
 export const team: TeamMember[] = [
@@ -14,7 +13,6 @@ export const team: TeamMember[] = [
     id: "arian-banaie",
     name: { en: "Arian Banaie", fa: "آرین بنایی" },
     role: { en: "CEO", fa: "مدیرعامل" },
-    initials: "AB",
     accent: "from-violet-600 to-fuchsia-500",
     photo: "/team/arian-banaie.png",
   },
@@ -22,7 +20,6 @@ export const team: TeamMember[] = [
     id: "ali-afzalpoor",
     name: { en: "Ali Afzalpoor", fa: "علی افضل‌پور" },
     role: { en: "Front-end Team Lead", fa: "سرپرست تیم فرانت‌اند" },
-    initials: "AA",
     accent: "from-fuchsia-500 to-purple-500",
     photo: "/team/ali-afzalpoor.png",
   },
@@ -30,7 +27,6 @@ export const team: TeamMember[] = [
     id: "shayesteh-momahhed",
     name: { en: "Shayesteh Momahhed", fa: "شایسته ممهد" },
     role: { en: "Data Team Lead", fa: "سرپرست تیم داده" },
-    initials: "SM",
     accent: "from-indigo-500 to-violet-600",
     photo: "/team/shayesteh-momahhed.png",
   },
@@ -38,7 +34,6 @@ export const team: TeamMember[] = [
     id: "mohammad-izadkhah",
     name: { en: "Mohammad Izadkhah", fa: "محمد ایزدخواه" },
     role: { en: "VP of Marketing", fa: "معاون بازاریابی" },
-    initials: "MI",
     accent: "from-violet-500 to-purple-600",
     photo: "/team/mohammad-izadkhah.jpg",
   },

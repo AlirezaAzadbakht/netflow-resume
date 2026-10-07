@@ -1,12 +1,10 @@
-"use client";
-
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "use-intl";
 import { ArrowRight, Sparkles, Users } from "lucide-react";
 import { WorkflowNodes } from "./WorkflowNodes";
 import { Typewriter } from "./Typewriter";
 
-export function Hero({ showTeam }: { showTeam: boolean }) {
+export function Hero() {
   const t = useTranslations("hero");
 
   return (
@@ -71,15 +69,13 @@ export function Hero({ showTeam }: { showTeam: boolean }) {
               {t("ctaPrimary")}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
             </a>
-            {showTeam && (
-              <a
-                href="#team"
-                className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white/90 px-6 py-3 text-sm font-semibold text-brand-700 transition hover:border-brand-400 hover:bg-white"
-              >
-                <Users className="h-4 w-4" />
-                {t("ctaSecondary")}
-              </a>
-            )}
+            <a
+              href="#team"
+              className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white/90 px-6 py-3 text-sm font-semibold text-brand-700 transition hover:border-brand-400 hover:bg-white"
+            >
+              <Users className="h-4 w-4" />
+              {t("ctaSecondary")}
+            </a>
           </motion.div>
         </motion.div>
       </div>
