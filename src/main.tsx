@@ -5,6 +5,7 @@ import { localeFromNavigator } from "@/i18n/routing";
 import { HomePage } from "./HomePage";
 import { LocaleLayout } from "./LocaleLayout";
 import { ProductPage } from "./ProductPage";
+import "lenis/dist/lenis.css";
 import "./index.css";
 
 function RootRedirect() {

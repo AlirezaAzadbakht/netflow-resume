@@ -16,7 +16,7 @@ The site is styled to match the NetflowAI app interface - soft white background,
 | Animation    | **framer-motion** + custom SVG node-network                                   |
 | i18n         | **use-intl** with full RTL support                                            |
 | Icons        | **lucide-react**                                                              |
-| Fonts        | Inter (EN) + Vazirmatn / Iranian Sans (FA), served from `public/fonts/`       |
+| Fonts        | Inter (EN) + Estedad (FA), served from `public/fonts/`                        |
 
 ---
 
@@ -59,11 +59,10 @@ src/
   index.css                 # Tailwind layers + NetflowAI design tokens
 
 components/
-  Hero.tsx                  # Hero with animated workflow nodes + typewriter tagline
-  WorkflowNodes.tsx         # SVG multi-agent network animation
+  Hero.tsx
   About.tsx
   Organizations.tsx         # Client logos
-  ProductsGrid.tsx          # Card grid linking to product detail pages
+  ProductsGrid.tsx
   ProductCard.tsx
   Team.tsx
   TeamCard.tsx
@@ -74,7 +73,6 @@ components/
   SectionReveal.tsx         # Scroll-triggered fade/slide-up wrapper
   ProductDetailAnimations.tsx
   Logo.tsx
-  Typewriter.tsx
 
 data/
   products.ts               # All 11 products, bilingual (EN + FA)
@@ -95,7 +93,7 @@ messages/
 
 - **URL-based locale**: every page is served under `/en/...` or `/fa/...`.
 - **Direction**: `<html dir="rtl">` is set automatically when `locale === "fa"`.
-- **Font swap**: Vazirmatn / Iranian Sans is applied automatically when the document is RTL.
+- **Font swap**: Estedad is applied automatically when the document is RTL.
 - **FA/EN button**: top-right of the navbar; preserves the current path and hash.
 
 ---

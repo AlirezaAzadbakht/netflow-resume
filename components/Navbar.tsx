@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "use-intl";
 import { Menu, X } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
@@ -13,11 +14,14 @@ const links = [
   { hash: "contact", key: "contact" as const },
 ];
 
+const ease = [0.16, 1, 0.3, 1] as const;
+
 export function Navbar() {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("");
   const isHome = pathname === "/";
 
   useEffect(() => {
@@ -31,6 +35,36 @@ export function Navbar() {
     setOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    if (!isHome) {
+      setActive("");
+      return;
+    }
+
+    const ratios = new Map<string, number>();
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) ratios.set(e.target.id, e.intersectionRatio);
+        let best = "";
+        let bestR = 0;
+        for (const [id, r] of ratios) {
+          if (r > bestR) {
+            bestR = r;
+            best = id;
+          }
+        }
+        if (bestR > 0) setActive(best);
+      },
+      { rootMargin: "-20% 0px -45% 0px", threshold: [0, 0.15, 0.3, 0.5, 1] },
+    );
+
+    for (const l of links) {
+      const el = document.getElementById(l.hash);
+      if (el) io.observe(el);
+    }
+    return () => io.disconnect();
+  }, [isHome]);
+
   const navLink = (hash: string, className: string, label: string) =>
     isHome ? (
       <a href={`#${hash}`} className={className} onClick={() => setOpen(false)}>
@@ -42,19 +76,22 @@ export function Navbar() {
       </Link>
     );
 
+  const desktopClass = (hash: string) =>
+    `nav-underline text-sm hover:text-ink-900 ${
+      active === hash ? "is-active text-ink-900" : "text-ink-500"
+    }`;
+
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled || open
-          ? "border-b border-brand-100/70 bg-white/80 backdrop-blur-xl shadow-[0_2px_24px_-12px_rgba(124,58,237,0.25)]"
-          : "border-b border-transparent bg-transparent"
+      className={`sticky top-0 z-50 bg-paper transition-colors ${
+        scrolled || open ? "border-b border-ink-900/10" : "border-b border-transparent"
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
           dir="ltr"
-          className="flex items-center gap-2.5 group"
+          className="flex items-center gap-2.5"
           onClick={() => setOpen(false)}
         >
           <Logo />
@@ -63,45 +100,55 @@ export function Navbar() {
           </span>
         </Link>
 
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
-            <li key={l.key}>
-              {navLink(
-                l.hash,
-                "relative rounded-full px-4 py-2 text-sm font-medium text-ink-500 transition-colors hover:text-brand-700",
-                t(l.key),
-              )}
-            </li>
+            <li key={l.key}>{navLink(l.hash, desktopClass(l.hash), t(l.key))}</li>
           ))}
         </ul>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-5">
           <LanguageToggle />
           <button
             type="button"
             aria-label={t("menuAria")}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-brand-200 bg-white/70 text-brand-700 backdrop-blur transition hover:border-brand-400 hover:bg-white md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center text-ink-900 md:hidden"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </nav>
 
-      {open ? (
-        <ul className="flex flex-col gap-1 px-4 pb-4 md:hidden sm:px-6">
-          {links.map((l) => (
-            <li key={l.key}>
-              {navLink(
-                l.hash,
-                "block rounded-xl px-4 py-2.5 text-sm font-medium text-ink-700 transition-colors hover:bg-brand-50 hover:text-brand-700",
-                t(l.key),
-              )}
-            </li>
-          ))}
-        </ul>
-      ) : null}
+      <AnimatePresence>
+        {open ? (
+          <motion.ul
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease }}
+            className="absolute inset-x-0 top-full overflow-hidden border-t border-ink-900/10 bg-paper md:hidden"
+          >
+            {links.map((l, i) => (
+              <motion.li
+                key={l.key}
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25, delay: i * 0.04, ease }}
+                className="border-b border-ink-900/10"
+              >
+                {navLink(
+                  l.hash,
+                  `block px-4 py-3 text-sm sm:px-6 ${
+                    active === l.hash ? "text-ink-900" : "text-ink-700"
+                  }`,
+                  t(l.key),
+                )}
+              </motion.li>
+            ))}
+          </motion.ul>
+        ) : null}
+      </AnimatePresence>
     </header>
   );
 }

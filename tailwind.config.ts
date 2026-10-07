@@ -26,13 +26,7 @@ const config: Config = {
           700: "#2a2347",
           500: "#5b5277",
         },
-        paper: "#fbfaff",
-      },
-      boxShadow: {
-        glow:
-          "0 0 0 1px rgba(124, 58, 237, 0.12), 0 18px 40px -12px rgba(124, 58, 237, 0.25)",
-        "glow-strong":
-          "0 0 0 1px rgba(124, 58, 237, 0.25), 0 30px 60px -15px rgba(124, 58, 237, 0.45)",
+        paper: "#fafaf9",
       },
     },
   },
