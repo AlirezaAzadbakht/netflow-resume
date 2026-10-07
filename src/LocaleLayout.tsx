@@ -5,7 +5,9 @@ import { IntlProvider } from "use-intl";
 import { Footer } from "@/components/Footer";
 import { HashScroll } from "@/components/HashScroll";
 import { Navbar } from "@/components/Navbar";
+import { usePathname } from "@/i18n/navigation";
 import { isLocale } from "@/i18n/routing";
+import { scrollToTarget } from "@/src/smoothScroll";
 import en from "@/messages/en.json";
 import fa from "@/messages/fa.json";
 
@@ -14,6 +16,7 @@ const messages = { en, fa };
 export function LocaleLayout() {
   const { locale } = useParams();
   const location = useLocation();
+  const pathname = usePathname();
   const valid = isLocale(locale);
 
   useEffect(() => {
@@ -23,10 +26,9 @@ export function LocaleLayout() {
   }, [locale, valid]);
 
   useEffect(() => {
-    if (!location.hash) {
-      window.scrollTo(0, 0);
-    }
-  }, [location.pathname, location.hash]);
+    if (location.hash) return;
+    scrollToTarget(0, { immediate: true });
+  }, [pathname, location.hash]);
 
   if (!valid) {
     return <Navigate to="/en" replace />;

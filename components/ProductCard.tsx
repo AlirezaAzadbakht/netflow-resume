@@ -1,7 +1,6 @@
-import type { MouseEvent } from "react";
 import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "use-intl";
-import { ArrowUpRight, ExternalLink } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import type { Product } from "@/data/products";
 
@@ -14,72 +13,50 @@ export function ProductCard({
 }) {
   const t = useTranslations("products");
   const locale = useLocale() as "en" | "fa";
-  const Icon = product.icon;
-
-  const onMove = (e: MouseEvent<HTMLDivElement>) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    e.currentTarget.style.setProperty("--x", `${e.clientX - r.left}px`);
-    e.currentTarget.style.setProperty("--y", `${e.clientY - r.top}px`);
-  };
+  const n = String(index + 1).padStart(2, "0");
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 18 }}
+    <motion.li
+      initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, delay: (index % 6) * 0.06, ease: [0.16, 1, 0.3, 1] }}
-      onMouseMove={onMove}
-      className="group relative h-full"
+      transition={{ duration: 0.5, delay: (index % 6) * 0.04, ease: [0.16, 1, 0.3, 1] }}
+      className="group border-b border-ink-900/10 transition-colors hover:bg-ink-900/[0.03]"
     >
-      <Link
-        href={`/products/${product.slug}`}
-        className="card-surface shine-border relative flex h-full flex-col overflow-hidden p-6 transition duration-300 hover:-translate-y-1 hover:shadow-glow-strong"
-      >
-        <div
-          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-          style={{
-            background:
-              "radial-gradient(220px circle at var(--x, 50%) var(--y, 0%), rgba(167, 139, 250, 0.28), transparent 60%)",
-          }}
-        />
-
-        <div
-          className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${product.accent} text-white shadow-glow`}
-        >
-          <Icon className="h-5 w-5" />
+      <div className="grid grid-cols-[3rem_1fr] items-start gap-4 py-8 sm:grid-cols-[4rem_1fr_auto] sm:gap-8 sm:px-2">
+        <span className="pt-1 text-sm tabular-nums text-ink-500">{n}</span>
+        <div className="min-w-0">
+          <Link
+            href={`/products/${product.slug}`}
+            className="block text-2xl font-semibold tracking-tight text-ink-900 sm:text-3xl"
+          >
+            {product.name[locale]}
+          </Link>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-500 sm:text-base">
+            {product.short[locale]}
+          </p>
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-ink-500">
+            <span>{product.client[locale]}</span>
+            {product.demo ? (
+              <a
+                href={product.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-4 hover:text-brand-600"
+              >
+                {t("demo")}
+              </a>
+            ) : null}
+          </div>
         </div>
-
-        <h3 className="mt-5 text-lg font-semibold leading-snug text-ink-900">
-          {product.name[locale]}
-        </h3>
-        <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-500">
-          {product.short[locale]}
-        </p>
-
-        <div className="mt-5 flex items-center justify-between gap-2 pt-4">
-          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-ink-500">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-400" />
-            {product.client[locale]}
-          </span>
-          <span className="inline-flex items-center gap-1 text-xs font-semibold text-brand-700 transition group-hover:gap-2">
-            {t("viewDetails")}
-            <ArrowUpRight className="h-3.5 w-3.5 rtl:-scale-x-100" />
-          </span>
-        </div>
-      </Link>
-
-      {product.demo ? (
-        <a
-          href={product.demo}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className="absolute end-4 top-4 z-10 rounded-full bg-white/90 p-1.5 text-brand-700 shadow-sm transition hover:bg-white hover:text-brand-900"
-          aria-label={t("demo")}
+        <Link
+          href={`/products/${product.slug}`}
+          aria-label={t("viewDetails")}
+          className="mt-2 hidden sm:block"
         >
-          <ExternalLink className="h-3.5 w-3.5" />
-        </a>
-      ) : null}
-    </motion.div>
+          <ArrowUpRight className="h-5 w-5 text-ink-900 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5" />
+        </Link>
+      </div>
+    </motion.li>
   );
 }

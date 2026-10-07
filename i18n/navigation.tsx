@@ -16,9 +16,15 @@ function prefixHref(href: string, locale: string): string {
   return `${prefixed}${hash}`;
 }
 
-export function Link({ href, ...props }: LinkProps) {
+export function Link({ href, viewTransition = true, ...props }: LinkProps) {
   const locale = useLocale();
-  return <RouterLink to={prefixHref(href, locale)} {...props} />;
+  return (
+    <RouterLink
+      to={prefixHref(href, locale)}
+      viewTransition={viewTransition}
+      {...props}
+    />
+  );
 }
 
 /** Pathname without the locale prefix. */

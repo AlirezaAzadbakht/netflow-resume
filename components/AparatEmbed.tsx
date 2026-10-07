@@ -26,7 +26,7 @@ export function AparatEmbed({ url, title, playLabel }: AparatEmbedProps) {
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-sm font-medium text-brand-700 underline-offset-2 hover:underline"
+        className="text-sm font-medium text-ink-900 underline underline-offset-4 hover:text-brand-600"
       >
         {title}
       </a>
@@ -34,7 +34,7 @@ export function AparatEmbed({ url, title, playLabel }: AparatEmbedProps) {
   }
 
   return (
-    <div className="relative aspect-video overflow-hidden rounded-2xl border border-brand-100 bg-ink-900/5 shadow-sm">
+    <div className="relative aspect-video overflow-hidden bg-ink-900/5">
       {playing ? (
         <iframe
           src={`${embedSrc(hash)}?autoplay=true`}
@@ -48,11 +48,11 @@ export function AparatEmbed({ url, title, playLabel }: AparatEmbedProps) {
         <button
           type="button"
           onClick={() => setPlaying(true)}
-          className="group absolute inset-0 flex w-full cursor-pointer items-center justify-center bg-gradient-to-br from-brand-100/80 via-white to-brand-50 transition hover:from-brand-200/70"
+          className="group absolute inset-0 flex w-full cursor-pointer items-center justify-center"
           aria-label={playLabel}
         >
-          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-ink-900 text-white shadow-glow transition group-hover:scale-105 group-hover:bg-brand-700 group-hover:shadow-glow-strong">
-            <Play className="h-7 w-7 fill-current ltr:ml-0.5" />
+          <span className="flex h-14 w-14 items-center justify-center bg-ink-900 text-white transition group-hover:bg-brand-600">
+            <Play className="h-6 w-6 fill-current ltr:ml-0.5" />
           </span>
         </button>
       )}
