@@ -81,7 +81,7 @@ jobs:
           # Dest keys have no extension; force HTML or browsers will not render.
           while IFS= read -r key; do
             [ -n "${key}" ] || continue
-            rclone copyto dist/index.html "arvan:${ARVAN_BUCKET}/${key}" \
+            rclone copyto "dist/${key}/index.html" "arvan:${ARVAN_BUCKET}/${key}" \
               --header-upload "Content-Type: text/html; charset=utf-8" \
               --verbose
           done < <(node scripts/write-spa-pages.mjs --keys)

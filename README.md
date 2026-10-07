@@ -1,8 +1,8 @@
-# NetflowAI — Team & Product Resume Site
+# NetflowAI - Team & Product Resume Site
 
 A bilingual (English / Persian) React website that showcases the **NetflowAI** team and its eleven flagship products to investors, enterprise leaders, and partners.
 
-The site is styled to match the NetflowAI app interface — soft white background, glowing purple accent gradients, and an animated multi-agent workflow visual that reflects the team's identity.
+The site is styled to match the NetflowAI app interface - soft white background, glowing purple accent gradients, and an animated multi-agent workflow visual that reflects the team's identity.
 
 ---
 

@@ -8,7 +8,7 @@ export function Hero() {
   const t = useTranslations("hero");
 
   return (
-    <section className="relative isolate overflow-hidden pt-12 pb-24 sm:pt-20 sm:pb-32">
+    <section className="relative isolate overflow-hidden pt-10 pb-16 sm:pt-20 sm:pb-32">
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 dotted-grid opacity-30" />
         <WorkflowNodes />
@@ -20,7 +20,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 24, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="glass-panel relative mx-auto max-w-4xl px-6 py-12 text-center sm:px-12 sm:py-16"
+          className="glass-panel relative mx-auto max-w-4xl px-5 py-8 text-center sm:px-12 sm:py-16"
         >
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -38,7 +38,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="mt-6 text-balance text-4xl font-bold tracking-tight text-ink-900 sm:text-6xl lg:text-[64px] lg:leading-[1.1]"
+            className="mt-6 text-balance text-3xl font-bold tracking-tight text-ink-900 sm:text-6xl lg:text-[64px] lg:leading-[1.1]"
           >
             <span className="block">{t("titleLead")}</span>
             <span className="gradient-text mt-2 block pb-1">

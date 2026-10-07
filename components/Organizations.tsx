@@ -42,13 +42,13 @@ const organizations: Org[] = [
   },
   {
     key: "afa-chemi",
-    src: "/logos/Afa-chemi-pharmaceutical-co.png",
+    src: "/logos/Afa-chemi-pharmaceutical-co.webp",
     nameEn: "Afa chemi pharmaceutical co",
     nameFa: "شرکت دارو سازی آفاشیمی",
   },
   {
     key: "gisp",
-    src: "/logos/GISP.png",
+    src: "/logos/GISP.webp",
     nameEn: "GISP Group",
     nameFa: "گروه جی‌ آی‌ اس‌ پی (GISP)",
   },
@@ -71,11 +71,14 @@ export function Organizations() {
         </SectionReveal>
 
         <SectionReveal delay={0.1}>
-          <ul className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-3">
+          <ul className="mt-14 flex flex-wrap justify-center gap-4 sm:gap-5">
             {organizations.map((org) => {
               const label = isFa ? org.nameFa : org.nameEn;
               return (
-                <li key={org.key} className="group">
+                <li
+                  key={org.key}
+                  className="group w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.875rem)]"
+                >
                   <div
                     className="card-surface shine-border flex h-full flex-col items-center justify-center gap-4 px-4 py-7 transition-transform duration-300 hover:-translate-y-1"
                     title={label}
@@ -86,7 +89,9 @@ export function Organizations() {
                         alt={label}
                         width={160}
                         height={80}
-                        className="max-h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                        decoding="async"
+                        className="max-h-20 w-auto object-contain grayscale-[50%] transition duration-300 group-hover:scale-105 group-hover:grayscale-0"
                       />
                     </div>
                     <div className="text-center text-xs font-semibold tracking-wide text-ink-700 sm:text-sm">

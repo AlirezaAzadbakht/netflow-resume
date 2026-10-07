@@ -1,9 +1,9 @@
-import { ArrowLeft, ExternalLink, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink, Sparkles } from "lucide-react";
 import { Navigate, useParams } from "react-router";
 import { useTranslations } from "use-intl";
 import { AparatEmbed } from "@/components/AparatEmbed";
 import { FeatureItem, Reveal } from "@/components/ProductDetailAnimations";
-import { getProductBySlug } from "@/data/products";
+import { getProductBySlug, products } from "@/data/products";
 import { Link } from "@/i18n/navigation";
 import { isLocale } from "@/i18n/routing";
 
@@ -23,10 +23,11 @@ export function ProductPage() {
   const name = product.name[locale];
   const desc = product.short[locale];
   const Icon = product.icon;
+  const next = products[(products.findIndex((p) => p.slug === slug) + 1) % products.length];
 
   return (
     <article className="relative">
-      <title>{`${name} — NetflowAI`}</title>
+      <title>{`${name} - NetflowAI`}</title>
       <meta name="description" content={desc} />
       <div className="absolute inset-x-0 top-0 -z-10 h-96 bg-gradient-to-b from-brand-100/60 to-transparent" />
 
@@ -101,7 +102,7 @@ export function ProductPage() {
               <div className="mt-4">
                 <AparatEmbed
                   url={product.video}
-                  title={`${name} — ${t("video")}`}
+                  title={`${name} - ${t("video")}`}
                   playLabel={t("playVideo")}
                 />
               </div>
@@ -144,6 +145,23 @@ export function ProductPage() {
             ))}
           </ul>
         </section>
+
+        <Reveal delay={0.5}>
+          <Link
+            href={`/products/${next.slug}`}
+            className="card-surface shine-border group mt-14 flex items-center justify-between gap-4 p-5 transition hover:-translate-y-0.5 hover:shadow-glow"
+          >
+            <span>
+              <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-brand-600">
+                {t("next")}
+              </span>
+              <span className="mt-1 block text-base font-semibold text-ink-900">
+                {next.name[locale]}
+              </span>
+            </span>
+            <ArrowRight className="h-5 w-5 shrink-0 text-brand-700 transition-transform group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
+          </Link>
+        </Reveal>
       </div>
     </article>
   );

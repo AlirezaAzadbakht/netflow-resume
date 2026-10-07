@@ -1,3 +1,4 @@
+import type { MouseEvent } from "react";
 import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "use-intl";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
@@ -15,31 +16,37 @@ export function ProductCard({
   const locale = useLocale() as "en" | "fa";
   const Icon = product.icon;
 
+  const onMove = (e: MouseEvent<HTMLDivElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty("--x", `${e.clientX - r.left}px`);
+    e.currentTarget.style.setProperty("--y", `${e.clientY - r.top}px`);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.6, delay: (index % 6) * 0.06, ease: [0.16, 1, 0.3, 1] }}
+      onMouseMove={onMove}
       className="group relative h-full"
     >
       <Link
         href={`/products/${product.slug}`}
         className="card-surface shine-border relative flex h-full flex-col overflow-hidden p-6 transition duration-300 hover:-translate-y-1 hover:shadow-glow-strong"
       >
-        <div className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-gradient-to-br opacity-20 blur-2xl transition group-hover:opacity-40 group-hover:scale-110"
-          style={{ background: `linear-gradient(135deg, var(--color-brand-400), var(--color-brand-700))` }}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          style={{
+            background:
+              "radial-gradient(220px circle at var(--x, 50%) var(--y, 0%), rgba(167, 139, 250, 0.28), transparent 60%)",
+          }}
         />
 
-        <div className="flex items-start justify-between gap-3">
-          <div
-            className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${product.accent} text-white shadow-glow`}
-          >
-            <Icon className="h-5 w-5" />
-          </div>
-          <span className="pulse-dot opacity-0 transition-opacity group-hover:opacity-100">
-            <span className="relative inline-block h-2 w-2 rounded-full bg-brand-600" />
-          </span>
+        <div
+          className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${product.accent} text-white shadow-glow`}
+        >
+          <Icon className="h-5 w-5" />
         </div>
 
         <h3 className="mt-5 text-lg font-semibold leading-snug text-ink-900">
@@ -67,7 +74,7 @@ export function ProductCard({
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="absolute end-4 top-4 z-10 hidden rounded-full bg-white/90 p-1.5 text-brand-700 shadow-sm transition hover:bg-white hover:text-brand-900 group-hover:block"
+          className="absolute end-4 top-4 z-10 rounded-full bg-white/90 p-1.5 text-brand-700 shadow-sm transition hover:bg-white hover:text-brand-900"
           aria-label={t("demo")}
         >
           <ExternalLink className="h-3.5 w-3.5" />

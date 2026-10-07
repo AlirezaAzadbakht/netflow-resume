@@ -1,14 +1,38 @@
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "use-intl";
-import { motion } from "framer-motion";
+import { animate, motion, useInView } from "framer-motion";
 import { Cpu, Building2, Boxes } from "lucide-react";
 import { SectionHeader } from "./SectionHeader";
 import { SectionReveal } from "./SectionReveal";
 
 const stats = [
-  { icon: Boxes, value: "11+", key: "products" as const },
-  { icon: Cpu, value: "40+", key: "models" as const },
-  { icon: Building2, value: "6", key: "industries" as const },
+  { icon: Boxes, to: 11, suffix: "+", key: "products" as const },
+  { icon: Cpu, to: 40, suffix: "+", key: "models" as const },
+  { icon: Building2, to: 6, suffix: "", key: "industries" as const },
 ];
+
+function CountUp({ to, suffix }: { to: number; suffix: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px 0px" });
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const controls = animate(0, to, {
+      duration: 1.1,
+      ease: "easeOut",
+      onUpdate: (v) => setValue(Math.round(v)),
+    });
+    return () => controls.stop();
+  }, [inView, to]);
+
+  return (
+    <div ref={ref} className="text-3xl font-bold tracking-tight text-ink-900">
+      {value}
+      {suffix}
+    </div>
+  );
+}
 
 export function About() {
   const t = useTranslations("about");
@@ -38,9 +62,7 @@ export function About() {
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-glow">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <div className="text-3xl font-bold tracking-tight text-ink-900">
-                      {s.value}
-                    </div>
+                    <CountUp to={s.to} suffix={s.suffix} />
                   </div>
                   <div className="mt-3 text-sm font-medium text-ink-500">
                     {t(`stats.${s.key}`)}

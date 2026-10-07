@@ -32,7 +32,11 @@ export function TeamCard({
           <img
             src={member.photo}
             alt={member.name[locale]}
-            className="h-full w-full object-cover"
+            width={128}
+            height={128}
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         </div>
       </div>

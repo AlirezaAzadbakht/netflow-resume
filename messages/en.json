@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "NetflowAI — Operating System for Intelligent Enterprises",
-    "description": "NetflowAI builds end-to-end intelligent systems — multi-agent platforms, RAG, voice AI and data intelligence — for high-impact enterprises."
+    "title": "NetflowAI - Operating System for Intelligent Enterprises",
+    "description": "NetflowAI builds end-to-end intelligent systems - multi-agent platforms, RAG, voice AI and data intelligence - for high-impact enterprises."
   },
   "nav": {
     "about": "About",
@@ -10,12 +10,13 @@
     "team": "Team",
     "contact": "Contact",
     "switchLang": "FA",
-    "switchAria": "Switch to Persian"
+    "switchAria": "Switch to Persian",
+    "menuAria": "Open menu"
   },
   "hero": {
     "titleLead": "The operating system for",
     "titleHighlight": "intelligent enterprises",
-    "subtitle": "We don't just build AI tools — we ship end-to-end intelligent systems that replace complexity with clarity, automate decision-making, and scale knowledge across organizations.",
+    "subtitle": "We don't just build AI tools - we ship end-to-end intelligent systems that replace complexity with clarity, automate decision-making, and scale knowledge across organizations.",
     "ctaPrimary": "Explore products",
     "ctaSecondary": "Meet the team",
     "badge": "AI · Automation · Decision Intelligence"
@@ -23,7 +24,7 @@
   "about": {
     "kicker": "About",
     "title": "Intelligence, end-to-end.",
-    "body": "From AI agents and voice platforms to enterprise-grade data intelligence and RAG-powered knowledge systems, our products eliminate inefficiencies, reduce dependency on human bottlenecks, and scale intelligence across entire organizations. We focus on high-impact industries where speed, accuracy, and decision-making matter most — transforming fragmented workflows into autonomous, self-optimizing systems.",
+    "body": "From AI agents and voice platforms to enterprise-grade data intelligence and RAG-powered knowledge systems, our products eliminate inefficiencies, reduce dependency on human bottlenecks, and scale intelligence across entire organizations. We focus on high-impact industries where speed, accuracy, and decision-making matter most - transforming fragmented workflows into autonomous, self-optimizing systems.",
     "stats": {
       "products": "Flagship products",
       "models": "AI models orchestrated",
@@ -47,7 +48,8 @@
     "playVideo": "Play promo video",
     "features": "Key features",
     "purpose": "Purpose",
-    "back": "Back to all products"
+    "back": "Back to all products",
+    "next": "Next product"
   },
   "team": {
     "kicker": "Team",
@@ -57,7 +59,7 @@
   "contact": {
     "kicker": "Get in touch",
     "title": "Let's build the intelligent enterprise together.",
-    "subtitle": "For investor inquiries, enterprise pilots, or partnerships — reach out and we'll respond within one business day.",
+    "subtitle": "For investor inquiries, enterprise pilots, or partnerships - reach out and we'll respond within one business day.",
     "cta": "Visit netflowai.com",
     "email": "netflowai@gmail.com"
   },

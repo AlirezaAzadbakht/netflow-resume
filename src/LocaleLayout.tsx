@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { MotionConfig } from "framer-motion";
 import { Navigate, Outlet, useLocation, useParams } from "react-router";
 import { IntlProvider } from "use-intl";
 import { Footer } from "@/components/Footer";
@@ -33,14 +34,16 @@ export function LocaleLayout() {
 
   return (
     <IntlProvider locale={locale} messages={messages[locale]}>
-      <HashScroll />
-      <div className="relative flex min-h-screen flex-col">
-        <Navbar />
-        <main className="flex-1">
-          <Outlet />
-        </main>
-        <Footer />
-      </div>
+      <MotionConfig reducedMotion="user">
+        <HashScroll />
+        <div className="relative flex min-h-screen flex-col">
+          <Navbar />
+          <main className="flex-1">
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
+      </MotionConfig>
     </IntlProvider>
   );
 }
