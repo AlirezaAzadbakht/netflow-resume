@@ -131,10 +131,9 @@ Configure these GitHub secrets and variables:
 | Secret  | `ARVAN_BUCKET`     | Bucket name                                                           |
 | Variable | `ARVAN_ENDPOINT`  | Optional. Default `s3.ir-thr-at1.arvanstorage.ir`                     |
 
-Enable static website hosting on the bucket:
+Enable static website hosting on the bucket (**index document:** `index.html`).
 
-- **Index document:** `index.html`
-- **Error document:** `index.html` (so SPA routes reload instead of 404)
+Arvan returns **403** for missing keys (not 404), so an error document cannot cover `/en` on refresh. The build writes `en/index.html` (and each product path), and the deploy also uploads `index.html` at the no-slash keys `/en`, `/fa`, and `/…/products/<slug>`.
 
 ---
 

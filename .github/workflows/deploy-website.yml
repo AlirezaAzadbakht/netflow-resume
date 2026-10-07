@@ -3,9 +3,10 @@
 #
 # Secrets:   ARVAN_ACCESS_KEY, ARVAN_SECRET_KEY, ARVAN_BUCKET
 # Variable:  ARVAN_ENDPOINT (optional, default s3.ir-thr-at1.arvanstorage.ir; Tabriz: s3.ir-tbz-sh1.arvanstorage.ir)
-# The bucket must have static website hosting enabled:
-#   - index document: index.html
-#   - error document: index.html  (required so SPA routes like /en/products/<slug> reload)
+# The bucket must have static website hosting enabled (index: index.html).
+# Arvan returns 403 (not 404) for missing keys, so error-document fallback
+# does not work. After sync we also upload index.html at each SPA route key
+# (/en, /fa, /en/products/<slug>, ...) so refresh is an existing object.
 
 name: Deploy website to Arvan Cloud
 
@@ -74,3 +75,13 @@ jobs:
             --checksum \
             --transfers 8 \
             --verbose
+
+          # /en is a file key, not a folder. Linux cannot store both dist/en
+          # and dist/en/products/, so those no-slash routes are uploaded here.
+          # Dest keys have no extension; force HTML or browsers will not render.
+          while IFS= read -r key; do
+            [ -n "${key}" ] || continue
+            rclone copyto dist/index.html "arvan:${ARVAN_BUCKET}/${key}" \
+              --header-upload "Content-Type: text/html; charset=utf-8" \
+              --verbose
+          done < <(node scripts/write-spa-pages.mjs --keys)
